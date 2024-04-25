@@ -36,7 +36,7 @@ class Model:
 
 
 
-data = pd.read_csv(DIR + 'data.csv', sep=';')
+data = pd.read_csv(DIR + 'data.csv')
 model = Model(data)
 print(model.train(target='Target'))
 
