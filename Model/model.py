@@ -14,6 +14,7 @@ class Model:
         self.data = data
         self.model = LogisticRegression(random_state=RANDOM_STATE)
         self.scaler = StandardScaler()
+        self.feature_names = data.columns.drop('Target')
 
     def train(self, target='Target'):
         X = self.data.drop(target, axis=1)
@@ -24,6 +25,8 @@ class Model:
         X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=RANDOM_STATE)
         self.model.fit(X_train, y_train)
         y_pred = self.model.predict(X_test)
+
+        self.coefficients = self.model.coef_[0]
         return accuracy_score(y_test, y_pred)
     
     def predict(self, X):
@@ -38,7 +41,8 @@ class Model:
 
 data = pd.read_csv(DIR + 'data.csv')
 model = Model(data)
-print(model.train(target='Target'))
+accuracy = model.train(target='Target')
+print("Training accuracy:", model.train(target='Target'))
 
 
 model.save_model()
