@@ -2,6 +2,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 import joblib
 import pandas as pd
 
@@ -9,24 +13,48 @@ import pandas as pd
 RANDOM_STATE = 42
 DIR = 'Model/'
 
-class Model:
-    def __init__(self, data):
-        self.data = data
-        self.model = LogisticRegression(random_state=RANDOM_STATE)
+class Model:    
+    def __init__(self, train_data, test_data, model_type='logreg'):
+        self.train_data = train_data
+        self.test_data = test_data
         self.scaler = StandardScaler()
-        self.feature_names = data.columns.drop('Target')
+        self.feature_names = train_data.columns.drop('Target')
+        self.model_type = model_type
 
+        if self.model_type == 'logreg':
+            self.model = LogisticRegression(random_state=RANDOM_STATE)
+        elif self.model_type == 'svm':
+            self.model = SVC(random_state=RANDOM_STATE)
+        elif self.model_type == 'random_forest':
+            self.model = RandomForestClassifier(random_state=RANDOM_STATE)
+        elif self.model_type == 'knn':
+            self.model = KNeighborsClassifier()
+        elif self.model_type == 'decision_tree':
+            self.model = DecisionTreeClassifier(random_state=RANDOM_STATE)
+
+
+
+    def split_data(self, train_data, test_data, target='Target'):
+        X_train = self.train_data.drop(target, axis=1)
+        X_test = self.test_data.drop(target, axis=1)
+        y_train = self.train_data[target]
+        y_test = self.test_data[target]
+        
+        if self.model_type == 'logreg':
+            X_train = self.scaler.fit_transform(X_train)
+            X_test = self.scaler.transform(X_test)
+
+        return X_train, X_test, y_train, y_test
+    
     def train(self, target='Target'):
-        X = self.data.drop(target, axis=1)
-        y = self.data[target]
+        X_train, X_test, y_train, y_test = self.split_data(self.train_data, self.test_data, target)
 
-        X_scaled = self.scaler.fit_transform(X)
-
-        X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=RANDOM_STATE)
         self.model.fit(X_train, y_train)
         y_pred = self.model.predict(X_test)
 
-        self.coefficients = self.model.coef_[0]
+        if self.model_type == 'logreg':
+            self.coefficients = self.model.coef_[0]
+
         return accuracy_score(y_test, y_pred)
     
     def predict(self, X):
@@ -39,8 +67,13 @@ class Model:
 
 
 
-data = pd.read_csv(DIR + 'data.csv')
-model = Model(data)
+train_data = pd.read_csv(DIR + 'dota2Train.csv')
+train_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}' for i in range(1, train_data.shape[1] - 2)]
+
+test_data = pd.read_csv(DIR + 'dota2Test.csv')
+test_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}' for i in range(1, test_data.shape[1] - 2)]
+
+model = Model(train_data, test_data, 'svm')
 accuracy = model.train(target='Target')
 print("Training accuracy:", model.train(target='Target'))
 
