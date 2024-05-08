@@ -6,6 +6,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
+import json
 import joblib
 import pandas as pd
 
@@ -67,11 +68,15 @@ class Model:
 
 
 
+with open('Model/heroes.json', 'r') as file:
+    heroes = pd.json_normalize(json.load(file)['heroes'])
+    hero_names = heroes.localized_name.to_list()
+
 train_data = pd.read_csv(DIR + 'dota2Train.csv')
-train_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}' for i in range(1, train_data.shape[1] - 2)]
+train_data.columns = ['Target'] + [i for i in hero_names]
 
 test_data = pd.read_csv(DIR + 'dota2Test.csv')
-test_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}' for i in range(1, test_data.shape[1] - 2)]
+test_data.columns = ['Target'] + [i for i in hero_names]
 
 model = Model(train_data, test_data)
 accuracy = model.train(target='Target')
