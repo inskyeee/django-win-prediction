@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AihelperConfig(AppConfig):
+class ApplicationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'AIhelper'
+    name = 'Application'
