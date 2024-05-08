@@ -22,7 +22,7 @@ class Model:
         self.model_type = model_type
 
         if self.model_type == 'logreg':
-            self.model = LogisticRegression(random_state=RANDOM_STATE)
+            self.model = LogisticRegression(random_state=RANDOM_STATE, C=0.1, solver='liblinear', penalty='l1')
         elif self.model_type == 'svm':
             self.model = SVC(random_state=RANDOM_STATE)
         elif self.model_type == 'random_forest':
@@ -73,7 +73,7 @@ train_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}
 test_data = pd.read_csv(DIR + 'dota2Test.csv')
 test_data.columns = ['Target'] + ['Game mode'] + ['Game type'] + [f'Feature_{i}' for i in range(1, test_data.shape[1] - 2)]
 
-model = Model(train_data, test_data, 'svm')
+model = Model(train_data, test_data)
 accuracy = model.train(target='Target')
 print("Training accuracy:", model.train(target='Target'))
 
