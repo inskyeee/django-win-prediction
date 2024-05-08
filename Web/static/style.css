@@ -1,0 +1,10 @@
+.test {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+    background-color: yellow;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
