@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from .forms import GameForm
+from .models import Game
 from .prediction import process_game
 
 def index(request):
+    last_prediction = None
+    if Game.objects.exists():
+        last_prediction = Game.objects.latest('date')
+    
     if request.method == 'POST':
         form = GameForm(request.POST)
         if form.is_valid():
@@ -16,7 +21,7 @@ def index(request):
     else:
         form = GameForm()  
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'index.html', {'form': form, 'last_prediction': last_prediction})
     
 def prediction(request):
     chance_of_win = request.session.get('chance_of_win')

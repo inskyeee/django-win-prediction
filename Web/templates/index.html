@@ -19,5 +19,14 @@
             <button type="submit">Submit</button>
         </form>
     </section>
+        {% if last_prediction %}
+            <h2>Last Prediction</h2>
+            <p>Team 1: {{ last_prediction.team1_hero1 }}, {{ last_prediction.team1_hero2 }}, {{ last_prediction.team1_hero3 }}, {{ last_prediction.team1_hero4 }}, {{ last_prediction.team1_hero5 }}</p>
+            <p>Team 2: {{ last_prediction.team2_hero1 }}, {{ last_prediction.team2_hero2 }}, {{ last_prediction.team2_hero3 }}, {{ last_prediction.team2_hero4 }}, {{ last_prediction.team2_hero5 }}</p>
+            <p>Prediction: {{ last_prediction.prediction }}</p>
+            <p>Date: {{ last_prediction.date }}</p>
+        {% else %}
+            <p>No predictions yet.</p>
+        {% endif %}
 </body>
 </html>
