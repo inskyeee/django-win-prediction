@@ -1,10 +1,130 @@
-.test {
-    color: wheat;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: underline;
-    background-color: navy;
-    padding: 10px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.main-title {
+    margin: 0;
+}
+
+.last-prediction-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 5px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.prediction-info {
+    text-align: left;
+    padding: 5px; 
+    margin: 0 auto;
+    width: 50%;  
+    max-width: 500px;  
+    background: #fafafa;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-prediction {
+    text-align: center;
+    font-size: 14px; 
+    color: #888;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px; 
+}
+
+.team {
+    width: 45%;
+}
+
+.team h3 {
+    text-align: center;
+    font-size: 16px; 
+}
+
+.user-input-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.user-input-section h2 {
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-team {
+    width: 45%;
+}
+
+.form-team select {
+    width: 100%;
+    padding: 5px; 
+    margin-bottom: 10px;
+}
+
+.date-field {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    text-align: center;
+}
+
+form {
+    display: inline-block;
+    text-align: left;
+}
+
+form button {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+.prediction-results {
+    padding: 20px;
+    text-align: center;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #333;  
+    padding: 10px 15px;  
+    border-radius: 5px;  
+}
+
+.back-link:hover {
+    background-color: #ddd; 
+    text-decoration: none;  
 }

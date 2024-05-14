@@ -1,22 +1,29 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction page</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Prediction Page</title>
 </head>
 <body>
-    <h1>Prediction here</h1>
-    {% if chance_of_win and win %}
-        <p>Probability of winning: {{ chance_of_win }}</p>
-        {% if win %}
-            <p>You are most likely to win</p>
+    <header>
+        <h1>Prediction Results</h1>
+    </header>
+    <section class="prediction-results">
+        {% if chance_of_win and win %}
+            <p>Probability of winning: {{ chance_of_win }}</p>
+            {% if win %}
+                <p>You are most likely to win</p>
+            {% else %}
+                <p>You are most likely to lose</p>
+            {% endif %}
         {% else %}
-            <p>You are most likely to loose</p>
+            <p>No prediction available.</p>
         {% endif %}
-    {% else %}
-        <p>No prediction available.</p>
-    {% endif %}
-    <a href="/home">Back to home</a>
+    </section>
+    <a class="back-link" href="/home">Back to home</a>
 </body>
-</html> 
+</html>

@@ -9,24 +9,67 @@
     <title>Test Website Page</title>
 </head>
 <body>
-    <h1 class="test">Welcome to Test Page</h1>
-    <p>This is just a test page to showcase some cool features.</p>
+    <header>
+        <h1 class="main-title">Welcome to Test Page</h1>
+    </header>
+    <section class="last-prediction-bar">
+        {% if last_prediction %}
+            <div class="prediction-info">
+                <h2>Last Prediction</h2>
+                <div class="teams-container">
+                    <div class="team team1">
+                        <h3>Team 1</h3>
+                        <p>{{ last_prediction.team1_hero1 }}</p>
+                        <p>{{ last_prediction.team1_hero2 }}</p>
+                        <p>{{ last_prediction.team1_hero3 }}</p>
+                        <p>{{ last_prediction.team1_hero4 }}</p>
+                        <p>{{ last_prediction.team1_hero5 }}</p>
+                    </div>
+                    <div class="team team2">
+                        <h3>Team 2</h3>
+                        <p>{{ last_prediction.team2_hero1 }}</p>
+                        <p>{{ last_prediction.team2_hero2 }}</p>
+                        <p>{{ last_prediction.team2_hero3 }}</p>
+                        <p>{{ last_prediction.team2_hero4 }}</p>
+                        <p>{{ last_prediction.team2_hero5 }}</p>
+                    </div>
+                </div>
+                <p><strong>Prediction:</strong> {{ last_prediction.prediction }}</p>
+                <p><strong>Date:</strong> {{ last_prediction.date }}</p>
+            </div>
+        {% else %}
+            <p class="no-prediction">No predictions yet.</p>
+        {% endif %}
+    </section>
     <section class="user-input-section">
-        <h2>Input here:</h2>
+        <h2>Input your game data:</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit</button>
+            <div class="form-container">
+                <div class="form-team team1-form">
+                    <h3>Team 1</h3>
+                    {{ form.team1_hero1 }}
+                    {{ form.team1_hero2 }}
+                    {{ form.team1_hero3 }}
+                    {{ form.team1_hero4 }}
+                    {{ form.team1_hero5 }}
+                </div>
+                <div class="form-team team2-form">
+                    <h3>Team 2</h3>
+                    {{ form.team2_hero1 }}
+                    {{ form.team2_hero2 }}
+                    {{ form.team2_hero3 }}
+                    {{ form.team2_hero4 }}
+                    {{ form.team2_hero5 }}
+                </div>
+            </div>
+            <div class="date-field">
+                {{ form.date }}
+            </div>
+            <div class="submit-button">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     </section>
-        {% if last_prediction %}
-            <h2>Last Prediction</h2>
-            <p>Team 1: {{ last_prediction.team1_hero1 }}, {{ last_prediction.team1_hero2 }}, {{ last_prediction.team1_hero3 }}, {{ last_prediction.team1_hero4 }}, {{ last_prediction.team1_hero5 }}</p>
-            <p>Team 2: {{ last_prediction.team2_hero1 }}, {{ last_prediction.team2_hero2 }}, {{ last_prediction.team2_hero3 }}, {{ last_prediction.team2_hero4 }}, {{ last_prediction.team2_hero5 }}</p>
-            <p>Prediction: {{ last_prediction.prediction }}</p>
-            <p>Date: {{ last_prediction.date }}</p>
-        {% else %}
-            <p>No predictions yet.</p>
-        {% endif %}
 </body>
 </html>
