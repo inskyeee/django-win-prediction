@@ -26,4 +26,4 @@ def index(request):
 def prediction(request):
     chance_of_win = request.session.get('chance_of_win')
     win = chance_of_win >= 0.5
-    return render(request, 'prediction.html', {'chance_of_win': chance_of_win, 'win': win})
+    return render(request, 'prediction.html', {'chance_of_win': '{chance:.0f}%'.format(chance=chance_of_win*100), 'win': win})
