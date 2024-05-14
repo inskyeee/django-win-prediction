@@ -11,6 +11,7 @@ loaded_scaler = joblib.load('Model/scaler.pkl')
 with open('Model/heroes.json', 'r') as file:
     heroes = pd.json_normalize(json.load(file)['heroes'])
     hero_names = heroes.localized_name.to_list()
+    print(hero_names)
 
 
 
@@ -26,8 +27,7 @@ coefficients = loaded_model.coef_[0]
 features = loaded_scaler.feature_names_in_
 
 feature_importance = pd.Series(coefficients, index=features)
-# feature_importance.sort_values(key=lambda x: abs(coefficients), ascending=False, inplace=True)
+feature_importance.sort_values(key=lambda x: abs(coefficients), ascending=False, inplace=True)
 
-print(feature_importance)
 
 
