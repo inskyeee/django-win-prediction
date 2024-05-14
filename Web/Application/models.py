@@ -27,6 +27,7 @@ class Game(models.Model):
     team2_hero5 = models.CharField(max_length=20, choices=HEROES)
 
     date = models.DateField(default=timezone.now)
+    prediction = models.CharField(max_length=20, default='NA')
 
     def __str__(self):
         return self.team1_hero1 + self.team1_hero2 + self.team1_hero3 + self.team1_hero4 + self.team1_hero5 + \
